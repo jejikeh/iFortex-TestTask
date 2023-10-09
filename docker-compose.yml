@@ -1,0 +1,29 @@
+﻿services:
+  testtask:
+    image: testtask
+    build:
+      context: .
+      dockerfile: TestTask/Dockerfile
+    ports:
+      - "8000:80"
+    networks: 
+      - dev
+  database:
+    image: debezium/postgres:13-alpine
+    environment:
+      - POSTGRES_DATABASE=testtask
+      - POSTGRES_USER=testtask
+      - POSTGRES_PASSWORD=testtask
+    ports:
+      - "5432"
+    volumes:
+      - database-data:/data/db
+    networks:
+      - dev
+
+networks:
+  dev:
+    driver: bridge
+
+volumes:
+  database-data:
