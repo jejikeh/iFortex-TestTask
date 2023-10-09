@@ -17,8 +17,12 @@ public static class ApplicationExtensions
         builder.Services.AddScoped<IUserService, UserService>();
 
         builder.Services.AddDbContext<ApplicationDbContext>(options => 
-            options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+        // I checked in postgres
+        // builder.Services.AddDbContext<ApplicationDbContext>(options => 
+            // options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+        
         return builder;
     }
 
